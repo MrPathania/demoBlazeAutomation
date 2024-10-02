@@ -1,0 +1,21 @@
+{
+  "name": "assignment",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "login": "npx playwright test tests/loginFlow.spec.ts",
+    "userstate": "npx playwright test tests/userState.spec.ts",
+    "signup": "npx playwright test tests/signUp.spec.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.47.2",
+    "@types/node": "^22.7.4"
+  },
+  "dependencies": {
+    "assignment": "file:"
+  }
+}
