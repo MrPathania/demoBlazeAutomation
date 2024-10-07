@@ -44,11 +44,11 @@ let product = productList.mobile.Nexus6;
   const productName = await page.locator(`//a[normalize-space()= '${product}']`).textContent();
 
   await buy.selectOrderProduct(product)
-  page.waitForEvent('domcontentloaded')
-page.once('dialog', dialog => {
-  console.log(`Dialog message: ${dialog.message()}`);
-  dialog.dismiss().catch(() => {});
-});
+  page.once('dialog', dialog => {
+    console.log(`Dialog message: ${dialog.message()}`);
+    dialog.dismiss().catch(() => {});
+  });
+  await page.waitForEvent('domcontentloaded')
 const addToCartProductName = await page.locator('.name').textContent();
   expect(productName).toBe(addToCartProductName)
 
