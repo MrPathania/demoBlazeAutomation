@@ -22,13 +22,29 @@ let product = productList.mobile.Nexus6;
     const sign = new signUp(page);
     const login = new signLogin(page)
     const buy = new buyProduct(page)
-    await sign.Url()
     await sign.createAccount(username,password )
+    await page.waitForTimeout(2000)
+    await page.once('dialog', dialog => {
+      console.log(`Dialog message: ${dialog.message()}`);
+      dialog.dismiss().catch(() => {});
+    });
+    const createdUsername = username;
+    const createdPassword = password;
+    console.log('created password = ',createdPassword)
+    console.log('created Username = ',createdUsername)
+   await page.once('dialog', dialog => {
+      console.log(`Dialog message: ${dialog.message()}`);
+      dialog.dismiss().catch(() => {});
+    });
   await login.correctCredentials(username,password);
+  const usedUsername = username;
+    const usedPassword = password;
+    console.log('used password = ',usedPassword)
+    console.log('used Username = ',usedUsername)
   const productName = await page.locator(`//a[normalize-space()= '${product}']`).textContent();
 
   await buy.selectOrderProduct(product)
-
+  page.waitForEvent('domcontentloaded')
 page.once('dialog', dialog => {
   console.log(`Dialog message: ${dialog.message()}`);
   dialog.dismiss().catch(() => {});
@@ -37,6 +53,7 @@ const addToCartProductName = await page.locator('.name').textContent();
   expect(productName).toBe(addToCartProductName)
 
 await buy.addTocart();
+page.waitForEvent('domcontentloaded')
 const productOnCart = await page.locator(`//td[normalize-space()='${product}']`).first().textContent()
 expect(productOnCart).toBe(addToCartProductName)
 
