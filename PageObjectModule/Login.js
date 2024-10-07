@@ -9,7 +9,7 @@ class Login {
      this.loginButton = page.getByRole('link', { name: 'Log in' });
      this.username = page.locator('#loginusername');
      this.password = page.locator('#loginpassword');
-     this.login = page.getByRole('button', { name: 'Log in' });
+     this.login = page.locator(`//button[normalize-space()='Log in']`);
      this.baseUrl = 'https://www.demoblaze.com'
     
     
@@ -27,6 +27,7 @@ async Url(){
       await this.password.click()
       await this.password.fill(correctPassword)
       await this.login.click();
+
     }
 
     async incorrectCredentials(incorrectUsername, incorrectPassword){
